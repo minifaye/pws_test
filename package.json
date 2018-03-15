@@ -1,0 +1,19 @@
+{
+  "name": "pwa_test",
+  "version": "1.0.0",
+  "description": "my first pwa web",
+  "main": "index.js",
+  "scripts": {
+    "test": "pwa"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minifaye/pws_test.git"
+  },
+  "author": "minifaye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minifaye/pws_test/issues"
+  },
+  "homepage": "https://github.com/minifaye/pws_test#readme"
+}
