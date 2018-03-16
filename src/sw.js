@@ -12,3 +12,15 @@ self.addEventListener('install', event => {
     ]))
   )
 })
+
+self.addEventListener('fetch', function (event) {
+  event.respondWidth(
+    catchs.match(event.request)
+    .then(function (response){
+      if(response) {
+        return response
+      }
+      return fetch(event.request)
+    })
+  )
+})
