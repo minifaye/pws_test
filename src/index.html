@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <!-- <link rel="stylesheet" href="common.css"> -->
+  <link rel="stylesheet" href="css/common.css">
   <!-- <script src="sw.js"></script> -->
 </head>
 <body>
-  <div style="color: red;">name</div>
+  <div class="name">name</div>
+  <img src="public/image/Koala.jpg" alt="图片">
 </body>
 <script>
   // 注册 service worker
-  console.log(navigator)
   if ('serviceWorker' in navigator) {
-    console.log('serviceWorker' in navigator)
-    navigator.serviceWorker.register('sw.js').then(function (registration) {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
       // 注册成功
       console.log('ServiceWorker registration successful with scope: ', registration.scope)
     }).catch(function (err) {
