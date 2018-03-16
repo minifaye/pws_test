@@ -8,19 +8,33 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(cacheName)
     .then(cache => cache.addAll([
-      'public/image/Koala.jpg'
+      'public/image/Koala.jpg',
+      'css/common.css'
     ]))
   )
 })
 
 self.addEventListener('fetch', function (event) {
   event.respondWidth(
-    catchs.match(event.request)
+    caches.match(event.request, { ignoreSearch: true })
     .then(function (response){
       if(response) {
         return response
       }
-      return fetch(event.request)
+      var requestTocache = event.request.clone()
+      return fetch(event.requestTocache).then(
+        function (response) {
+          if (!response || response.status !== 200) {
+            return response
+          }
+          var responseToCache = response.clone()
+          caches.open(cacheName)
+          .then(function (cache) {
+            cache.put(requestTocache, responseToCache)
+          })
+          return response
+        }
+      )
     })
   )
 })
