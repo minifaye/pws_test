@@ -44,19 +44,19 @@
         }
     }
     
-    let headers = {
-        headers: {
-            // 'responseFormat': 'JSON',
-            'Content-Type': 'text/plain' 
-        }
-    }
+    // let headers = {
+    //     headers: {
+    //         // 'responseFormat': 'JSON',
+    //         'Content-Type': 'text/plain' 
+    //     }
+    // }
     $('#toPost').on('click', function() {
         console.log(888)
         $.ajax({
             type: 'POST',
             url: 'https://ebank.dgcb.com.cn:8501/support-channel/decorateLoan.do',
             data: JSON.stringify(params),
-            headers: headers,
+            // headers: headers,
             complete: function (xhr, status) {
                 console.log('xhr', xhr)
             }
