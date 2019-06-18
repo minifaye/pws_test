@@ -51,15 +51,33 @@
     //     }
     // }
     $('#toPost').on('click', function() {
-        console.log(888)
         $.ajax({
             type: 'POST',
             url: 'https://ebank.dgcb.com.cn:8501/support-channel/decorateLoan.do',
             data: JSON.stringify(params),
-            // headers: headers,
-            complete: function (xhr, status) {
-                console.log('xhr', xhr)
-            }
+            success: function (data) {
+              console.log(data)
+              if (data.errcod == '0'){
+                var win = window
+                //重新跳转到路由
+                win.location.href = data.url
+              } else {
+                alert(errmsg)
+              }
+            },
+            // complete: function (xhr, status) {
+            //   // 路由重定向,如果响应头中包含REDIRECT，则说明是拦截器返回的
+            //   var REDIRECT = xhr.getResponseHeader("REDIRECT")
+            //   if ("REDIRECT" == REDIRECT) {
+            //   var win = window
+            //   //返回当前浏览器顶层窗口
+            //   while (win != win.top) {
+            //     win = win.top 
+            //   }
+            //   //重新跳转到路由
+            //   win.location.href = xhr.getResponseHeader("CONTENTPATH")
+            //   }
+            // }
         })
     })
 
