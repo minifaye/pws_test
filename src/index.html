@@ -57,12 +57,12 @@
             data: JSON.stringify(params),
             success: function (data) {
               console.log(data)
-              if (data.errcod == '0'){
+              if (data.body.errcod == '0'){
                 var win = window
                 //重新跳转到路由
-                win.location.href = data.url
+                win.location.href = data.body.url
               } else {
-                alert(errmsg)
+                alert(data.body.errmsg)
               }
             },
             // complete: function (xhr, status) {
