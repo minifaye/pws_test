@@ -19,70 +19,7 @@
     
     2017年， PWA已经成为Web应用新的风潮。我们决定试试，以我们现有的“Vue.js+多页”架构，能在升级PWA的道路上走多远，达到怎样的效果。</div>
   <img src="public/image/Koala.jpg" alt="图片"> -->
-<button id="toPost">跨域请求</button>
-<script>
-  $(document).ready(function(){
-    var params = {
-        "header": {},
-        "body": {
-        //上送签名后的密文
-        "sign": "Sbfx92+YiFOE9lwHJIYVpZgHx/4dzDckuyVAkO4nRcAnUD5JxobSdCzgAILM7zpRbw3lLRVfCn9ClBJ79Q82MRQAd23L2iPYPNkHy9Oa0e7aiuuBFK9kYyk+GgsDqymb+jQezfr1GQnrCkvWEvqNaLYQJi7ngv4QLNCHMIaIYxw=",
-        "ordrno": "20190606531390290",
-        "aplyno": "20190517142125BOD",
-        "mercno": "121",
-        "mercna": "欧派橱柜（莞城店）",
-        "custno": "44190019950129133X",
-        "custna": "东莞银行测试",
-        "cuphno": "18825099088",
-        "commna": "八块钱网商品",
-        "currcy": "01",
-        "paydat": "20190618",
-        "paytim": "153920",
-        "taccty": "",
-        "ordamt": "15800.00",
-        "dirurl": "http://www.ceshi.com/index.php/m.php/callback/pay?orderid=592"
-        }
-    }
-    
-    // let headers = {
-    //     headers: {
-    //         // 'responseFormat': 'JSON',
-    //         'Content-Type': 'text/plain' 
-    //     }
-    // }
-    $('#toPost').on('click', function() {
-        $.ajax({
-            type: 'POST',
-            url: 'https://ebank.dgcb.com.cn:8501/support-channel/decorateLoan.do',
-            data: JSON.stringify(params),
-            success: function (data) {
-              console.log(data)
-              if (data.body.errorCode == '0'){
-                var win = window
-                //重新跳转到路由
-                win.location.href = data.body.dcturl
-              } else {
-                alert(data.body.errorMsg)
-              }
-            },
-            // complete: function (xhr, status) {
-            //   // 路由重定向,如果响应头中包含REDIRECT，则说明是拦截器返回的
-            //   var REDIRECT = xhr.getResponseHeader("REDIRECT")
-            //   if ("REDIRECT" == REDIRECT) {
-            //   var win = window
-            //   //返回当前浏览器顶层窗口
-            //   while (win != win.top) {
-            //     win = win.top 
-            //   }
-            //   //重新跳转到路由
-            //   win.location.href = xhr.getResponseHeader("CONTENTPATH")
-            //   }
-            // }
-        })
-    })
 
-  })
-</script>
 <script>
   // 注册 service worker
   // if ('serviceWorker' in navigator) {
