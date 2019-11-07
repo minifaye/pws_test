@@ -23,25 +23,7 @@
 <script>
   $(document).ready(function(){
     var params = {
-        "header": {},
-        "body": {
-        //上送签名后的密文
-        "sign": "Sbfx92+YiFOE9lwHJIYVpZgHx/4dzDckuyVAkO4nRcAnUD5JxobSdCzgAILM7zpRbw3lLRVfCn9ClBJ79Q82MRQAd23L2iPYPNkHy9Oa0e7aiuuBFK9kYyk+GgsDqymb+jQezfr1GQnrCkvWEvqNaLYQJi7ngv4QLNCHMIaIYxw=",
-        "ordrno": "20190606531390290",
-        "aplyno": "20190517142125BOD",
-        "mercno": "121",
-        "mercna": "欧派橱柜（莞城店）",
-        "custno": "44190019950129133X",
-        "custna": "东莞银行测试",
-        "cuphno": "18825099088",
-        "commna": "八块钱网商品",
-        "currcy": "01",
-        "paydat": "20190618",
-        "paytim": "153920",
-        "taccty": "",
-        "ordamt": "15800.00",
-        "dirurl": "http://www.ceshi.com/index.php/m.php/callback/pay?orderid=592"
-        }
+      keyWord: '5555'
     }
     
     // let headers = {
@@ -53,14 +35,22 @@
     $('#toPost').on('click', function() {
         $.ajax({
             type: 'POST',
-            url: 'https://ebank.dgcb.com.cn:8501/support-channel/decorateLoan.do',
+            url: 'https://ebank.dgcb.com.cn:8501/support-channel/getGjzwValidateCode.do',
             data: JSON.stringify(params),
             success: function (data) {
               console.log(data)
               if (data.body.errorCode == '0'){
-                var win = window
-                //重新跳转到路由
-                win.location.href = data.body.dcturl
+                var params = function (data) {
+                  var url = ''
+                  for (var k in data) {
+                    var value = data[k] !== undefined ? data[k] : ''
+                    url = url + '&' + k + '=' + encodeURIComponent(value) 
+                  }
+                  return url ? url.substring(1) : ''
+                }
+                var toUrl = data.body.url + '?' + params(data)
+                //跳转路由
+                window.location.href = toUrl
               } else {
                 alert(data.body.errorMsg)
               }
