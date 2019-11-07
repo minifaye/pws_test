@@ -43,7 +43,8 @@
             success: function (data) {
               console.log(data)
               if (data.body.errorCode == '0'){
-                var params = function (data) {
+                let obj = data.body
+                var params = function (obj) {
                   var url = ''
                   for (var k in data) {
                     var value = data[k] !== undefined ? data[k] : ''
