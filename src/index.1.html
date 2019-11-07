@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>psa_test</title>
+  <link rel="stylesheet" href="css/common.css">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">   -->
+  <!-- <script src="sw.js"></script> -->
+  <script src="./jquery-3.2.1 .js"></script>
+</head>
+<body>
+  <!-- <div class="name">于构建一个希望达到原生应用级别体验的PWA，目前社区里的主流做法都是采用SPA，即 单页面应用模型（Single-page App）来组织整个Web应用，业内最有名的几个PWA案例Twitter Lite、 Flipkart Lite、Housing Go 与 Polymer Shop无一例外。
+
+    然而饿了么，与很多国内的电商网站一样，青睐多页面应用模型（MPA， Multi-page App）所能带来的一些好处，也因此在一年多前就将移动站从基于AngularJS的单页应用重构为目前的多页应用模型。团队最看重的优点莫过于页面与页面之间的隔离与解耦，这使得我们可以将每个页面当做一个独立的“微服务”来看待，这些服务可以被独立迭代，独立提供给各种第三方的入口嵌入，甚至被不同的团队独立维护。而整个网站则只是各种服务的集合而非一个巨大的整体。
+    
+    与此同时，我们仍然依赖 Vue.js作为Java框架。 Vue.js除了是React、 AngularJS这种“重型武器”的竞争对手外，其轻量与高性能的优点使得它同样可以作为传统多页应用开发中流行的“jQuery/Zepto/Kissy+模板引擎”技术栈的完美替代。 Vue.js提供的组件系统、声明式与响应式编程更是提升了代码组织、共享、数据流控制、渲染等各个环节的开发效率。 Vue 还是一个渐进式框架，如果网站的复杂度继续提升，我们可以按需、增量地引入Vuex或Vue-Router这些模块。万一哪天又要改回单页呢？（谁知道呢……）
+    
+    2017年， PWA已经成为Web应用新的风潮。我们决定试试，以我们现有的“Vue.js+多页”架构，能在升级PWA的道路上走多远，达到怎样的效果。</div>
+  <img src="public/image/Koala.jpg" alt="图片"> -->
+<button id="toPost">跨域请求</button>
+<script>
+  $(document).ready(function(){
+    var params = {
+        "header": {},
+        "body": {
+        //上送签名后的密文
+        "sign": "Sbfx92+YiFOE9lwHJIYVpZgHx/4dzDckuyVAkO4nRcAnUD5JxobSdCzgAILM7zpRbw3lLRVfCn9ClBJ79Q82MRQAd23L2iPYPNkHy9Oa0e7aiuuBFK9kYyk+GgsDqymb+jQezfr1GQnrCkvWEvqNaLYQJi7ngv4QLNCHMIaIYxw=",
+        "ordrno": "20190606531390290",
+        "aplyno": "20190517142125BOD",
+        "mercno": "121",
+        "mercna": "欧派橱柜（莞城店）",
+        "custno": "44190019950129133X",
+        "custna": "东莞银行测试",
+        "cuphno": "18825099088",
+        "commna": "八块钱网商品",
+        "currcy": "01",
+        "paydat": "20190618",
+        "paytim": "153920",
+        "taccty": "",
+        "ordamt": "15800.00",
+        "dirurl": "http://www.ceshi.com/index.php/m.php/callback/pay?orderid=592"
+        }
+    }
+    
+    // let headers = {
+    //     headers: {
+    //         // 'responseFormat': 'JSON',
+    //         'Content-Type': 'text/plain' 
+    //     }
+    // }
+    $('#toPost').on('click', function() {
+        $.ajax({
+            type: 'POST',
+            url: 'https://ebank.dgcb.com.cn:8501/support-channel/decorateLoan.do',
+            data: JSON.stringify(params),
+            success: function (data) {
+              console.log(data)
+              if (data.body.errorCode == '0'){
+                var win = window
+                //重新跳转到路由
+                win.location.href = data.body.dcturl
+              } else {
+                alert(data.body.errorMsg)
+              }
+            },
+            // complete: function (xhr, status) {
+            //   // 路由重定向,如果响应头中包含REDIRECT，则说明是拦截器返回的
+            //   var REDIRECT = xhr.getResponseHeader("REDIRECT")
+            //   if ("REDIRECT" == REDIRECT) {
+            //   var win = window
+            //   //返回当前浏览器顶层窗口
+            //   while (win != win.top) {
+            //     win = win.top 
+            //   }
+            //   win.location.href = xhr.getResponseHeader("CONTENTPATH")
+            //   }
+            // }
+        })
+    })
+
+  })
+</script>
+<script>
+  // 注册 service worker
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker.register('sw.js').then(function (registration) {
+  //     // 注册成功
+  //     console.log('ServiceWorker registration successful with scope: ', registration.scope)
+  //   }).catch(function (err) {
+  //     // 注册失败
+  //     console.log('ServiceWorker registration failed: ', err)
+  //   })
+  // }
+</script>
+</body>
+</html>
