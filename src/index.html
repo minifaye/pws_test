@@ -23,7 +23,25 @@
 <script>
   $(document).ready(function(){
     var params = {
-      keyWord: '5555'
+        "header": {},
+        "body": {
+        //上送签名后的密文
+        "sign": "Sbfx92+YiFOE9lwHJIYVpZgHx/4dzDckuyVAkO4nRcAnUD5JxobSdCzgAILM7zpRbw3lLRVfCn9ClBJ79Q82MRQAd23L2iPYPNkHy9Oa0e7aiuuBFK9kYyk+GgsDqymb+jQezfr1GQnrCkvWEvqNaLYQJi7ngv4QLNCHMIaIYxw=",
+        "ordrno": "20190606531390290",
+        "aplyno": "20190517142125BOD",
+        "mercno": "121",
+        "mercna": "欧派橱柜（莞城店）",
+        "custno": "44190019950129133X",
+        "custna": "东莞银行测试",
+        "cuphno": "18825099088",
+        "commna": "八块钱网商品",
+        "currcy": "01",
+        "paydat": "20190618",
+        "paytim": "153920",
+        "taccty": "",
+        "ordamt": "15800.00",
+        "dirurl": "http://www.ceshi.com/index.php/m.php/callback/pay?orderid=592"
+        }
     }
     
     // let headers = {
@@ -35,22 +53,14 @@
     $('#toPost').on('click', function() {
         $.ajax({
             type: 'POST',
-            url: 'https://ebank.dgcb.com.cn:8501/support-channel/getGjzwValidateCode.do',
+            url: 'https://ebank.dgcb.com.cn:8501/support-channel/decorateLoan.do',
             data: JSON.stringify(params),
             success: function (data) {
               console.log(data)
               if (data.body.errorCode == '0'){
-                var params = function (data) {
-                  var url = ''
-                  for (var k in data) {
-                    var value = data[k] !== undefined ? data[k] : ''
-                    url = url + '&' + k + '=' + encodeURIComponent(value) 
-                  }
-                  return url ? url.substring(1) : ''
-                }
-                var toUrl = data.body.url + '?' + params(data)
-                //跳转路由
-                window.location.href = toUrl
+                var win = window
+                //重新跳转到路由
+                win.location.href = data.body.dcturl
               } else {
                 alert(data.body.errorMsg)
               }
@@ -64,13 +74,15 @@
             //   while (win != win.top) {
             //     win = win.top 
             //   }
-            //   //重新跳转到路由
             //   win.location.href = xhr.getResponseHeader("CONTENTPATH")
             //   }
             // }
         })
     })
 
+  })
+</script>
+<script>
   // 注册 service worker
   // if ('serviceWorker' in navigator) {
   //   navigator.serviceWorker.register('sw.js').then(function (registration) {
@@ -80,7 +92,7 @@
   //     // 注册失败
   //     console.log('ServiceWorker registration failed: ', err)
   //   })
-  })
+  // }
 </script>
 </body>
 </html>
